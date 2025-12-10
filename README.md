@@ -25,6 +25,27 @@
             justify-content: center;
         }
         
+
+        /* ===== ГЛОБАЛЬНЫЙ ФИКС ДЛЯ ЛОГОТИПА ===== */
+.global-logo {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    z-index: 999999;
+    pointer-events: none;
+}
+
+.global-logo img {
+    width: 140px;
+    height: auto;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
         .slide {
             display: none;
             width: 100%;
@@ -82,12 +103,87 @@
             filter: blur(50px);
         }
         
-        .logo-container {
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            z-index: 10;
-        }
+.logo-container {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    z-index: 9999;
+       }
+       .slide-1 {
+    position: relative;
+    z-index: 0;
+}
+
+.slide-1::before,
+.slide-1::after {
+    z-index: -1;
+}
+
+.slide-1 .logo-container {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    z-index: 10;
+}
+
+
+/* Анимация появления логотипа */
+@keyframes logoPop {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.8);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(5px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Анимация плавного появления снизу */
+@keyframes slideUpSlow {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Применяем анимацию к содержимому последнего слайда */
+.slide-8 .slide-content h2,
+.slide-8 .slide-content p {
+    opacity: 0; /* скрываем изначально */
+    animation: slideUpSlow 1s ease-out forwards;
+}
+
+/* Можно сделать небольшую задержку для абзаца */
+.slide-8 .slide-content p {
+    animation-delay: 0.3s;
+}
+
+.global-logo {
+    animation: logoPop 1.5s ease;
+}
+
+/* Анимация плавного появления снизу */
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+    opacity: 0;
+    animation: slideUpFade 1s ease-out forwards;
+}
+
+.animate-slide-up-delay {
+    opacity: 0;
+    animation: slideUpFade 1s ease-out 0.3s forwards; /* задержка */
+}
+
+
+
+
         
         .logo-container img {
             width: 140px;
@@ -98,6 +194,8 @@
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width:120px;
+            height:auto;
         }
         
         .title-content {
@@ -273,6 +371,113 @@
             gap: 30px;
             z-index: 100;
         }
+
+        /* -------- QR КОДЫ -------- */
+.qr-section{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+    margin-top:30px;
+}
+
+.qr-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    opacity:0;
+    animation:qr 0.9s ease forwards;
+}
+
+.qr-item:nth-child(1){animation-delay:.2s;}
+.qr-item:nth-child(2){animation-delay:.4s;}
+.qr-item:nth-child(3){animation-delay:.6s;}
+
+.qr-item img{
+    width:140px;
+    height:140px;
+    background:white;
+    padding:8px;
+    border-radius:14px;
+}
+
+.qr-item span{
+    font-size:15px;
+    color:white;
+    font-weight:600;
+    letter-spacing:.5px;
+}
+
+@keyframes qr{
+    from{opacity:0;transform:scale(.7);}
+    to{opacity:1;transform:scale(1);}
+}
+
+
+/* логотип универа */
+.uni-logo {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    z-index: 20;
+}
+
+.uni-logo img {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 6px 15px rgba(0,0,0,0.4));
+}
+
+/* 8 слайд */
+.slide-8 {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide-8 h2 {
+    font-size: 64px;
+    color: #667eea;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.slide-8 p {
+    font-size: 22px;
+    color: #d0d0d0;
+}
+
+.slide-8{
+    background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+
+
+
+/* Анимация */
+@keyframes qrAppear {
+    from {
+        transform: translateY(25px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeQr {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
         
         .nav-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -308,14 +513,39 @@
         .dot:hover { background: rgba(102, 126, 234, 0.6); }
         
         .slide-counter { color: #667eea; font-weight: 600; font-size: 16px; min-width: 40px; text-align: center; }
+
+/* --- FIX LOGO ON SLIDE 1 --- */
+
+.slide-1 {
+    position: relative;
+    z-index: 0;
+}
+
+.slide-1::before,
+.slide-1::after {
+    z-index: -1 !important;
+}
+
+.slide-1 .logo-container {
+    position: absolute !important;
+    top: 40px;
+    right: 40px;
+    z-index: 999999 !important; /* самый высокий слой */
+    pointer-events: none; /* чтобы не влиял на клики */
+}
+
     </style>
 </head>
 <body>
+
+        <!-- ГЛОБАЛЬНЫЙ ЛОГОТИП -->
+        <div class="global-logo">
+            <img src="logo.png" alt="Alatoo Logo">
+        </div>
+    
     <div class="presentation-wrapper">
         <div class="slide slide-1 active">
-            <div class="logo-container">
-                <img src="https://alatoo.edu.kg/wp-content/uploads/2023/10/cropped-ALATOO-LOGO-2.png" alt="Alatoo">
-            </div>
+            <
             <div class="title-content">
                 <h1>💱 Currency Converter</h1>
                 <p>Real-Time Exchange Rate Calculator</p>
@@ -438,29 +668,65 @@ function calculate() {
         </div>
         
         <div class="slide slide-7">
+
+            
+        
             <h2>✅ Заключение</h2>
             <p>Успешно разработано полнофункциональное веб-приложение</p>
             <p>для конвертации валют с современным дизайном</p>
+        
+            <div class="qr-section">
+                <div class="qr-item">
+                    <img src="qr1.png">
+                    <span>Figma QR</span>
+                </div>
+                <div class="qr-item">
+                    <img src="qr2.png">
+                    <span>GitHub Page QR</span>
+                </div>
+                <div class="qr-item">
+                    <img src="qr3.png">
+                    <span>GitHub Repository QR</span>
+                </div>
+            </div>
+
+            
+            
+            
+            
+        
             <div class="tech-box">
                 <p>🔧 <strong>Технологии:</strong> HTML5 • CSS3 • JavaScript ES6+</p>
                 <p>💻 <strong>Платформа:</strong> Web (Responsive Design)</p>
                 <p>⚡ <strong>Функциональность:</strong> Real-time Currency Conversion API</p>
                 <p>🎨 <strong>Дизайн:</strong> Современный пользовательский интерфейс</p>
             </div>
-            <div class="thank-you">Спасибо за внимание! 🙏</div>
+        
         </div>
-    </div>
+
+
+
+
+        <div class="slide slide-8">
+            <div class="slide-content">
+                <h2 class="animate-slide-up">🙏 Спасибо за внимание!</h2>
+                <p class="animate-slide-up-delay">Буду рад ответить на ваши вопросы</p>
+            </div>
+        </div>
+        
+
+
     
     <div class="controls">
         <button class="nav-btn" onclick="previousSlide()">❮</button>
         <div class="dots" id="dots-container"></div>
-        <span class="slide-counter"><span id="current">1</span>/7</span>
+        <span class="slide-counter"><span id="current">1</span>/8</span>
         <button class="nav-btn" onclick="nextSlide()">❯</button>
     </div>
     
     <script>
         let currentSlide = 1;
-        const totalSlides = 7;
+        const totalSlides = 8;
         
         const dotsContainer = document.getElementById('dots-container');
         for (let i = 1; i <= totalSlides; i++) {
@@ -470,19 +736,41 @@ function calculate() {
             dotsContainer.appendChild(dot);
         }
         
-        function showSlide(n) {
-            document.querySelectorAll('.slide').forEach((slide, index) => {
-                slide.classList.remove('active', 'prev');
-                if (index + 1 === n) slide.classList.add('active');
-                else if (index + 1 < n) slide.classList.add('prev');
-            });
-            
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index + 1 === n);
-            });
-            
-            document.getElementById('current').textContent = n;
+     function showSlide(n) {
+    // --- Лого ---
+    const logo = document.querySelector('.global-logo');
+    logo.style.animation = 'none';
+    void logo.offsetWidth; // перезапуск анимации
+    logo.style.animation = 'logoPop 0.7s ease';
+
+    // --- Слайды ---
+    document.querySelectorAll('.slide').forEach((slide, index) => {
+        slide.classList.remove('active', 'prev');
+
+        if (index + 1 === n) {
+            slide.classList.add('active');
+
+            // --- Анимация текста для последнего слайда (slide-8) ---
+            if (slide.classList.contains('slide-8')) {
+                slide.querySelectorAll('h2, p').forEach((el, i) => {
+                    el.style.animation = 'none';
+                    void el.offsetWidth; // сброс анимации
+                    el.style.animation = `slideUpFade 1s ease ${i * 0.3}s forwards`;
+                });
+            }
+        } else if (index + 1 < n) {
+            slide.classList.add('prev');
         }
+    });
+
+    // --- Точки и счетчик ---
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index + 1 === n);
+    });
+
+    document.getElementById('current').textContent = n;
+}
+
         
         function nextSlide() {
             currentSlide++;
